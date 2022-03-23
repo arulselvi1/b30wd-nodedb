@@ -2,6 +2,7 @@
 import express from "express"; // "type": "module",
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
+import cors from "cors";
 dotenv.config();
 
 console.log(process.env.MONGO_URL);
@@ -79,6 +80,7 @@ const movies = [
   },
 ];
 
+app.use(cors()); // to give data to all users
 //Middle ware -> Intercept -> converting body to json
 app.use(express.json());
 
