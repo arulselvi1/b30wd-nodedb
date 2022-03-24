@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import { moviesRouter } from "./routes/movies.js";
-
+import { usersRouter } from "./routes/users.js";
 dotenv.config();
 
 console.log(process.env.MONGO_URL);
@@ -32,5 +32,8 @@ app.get("/", function (req, res) {
 });
 
 app.use("/movies", moviesRouter);
+app.use("/users", usersRouter);
 
 app.listen(PORT, () => console.log(`Server Started in Port ${PORT}`));
+
+// genPassword("password@123");
