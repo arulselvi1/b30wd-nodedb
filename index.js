@@ -13,8 +13,8 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(cors()); // to give data to all users
-//Middle ware -> Intercept -> converting body to json
-app.use(express.json());
+//Middle ware -> Intercept -> converting body to json // third- party middelware
+app.use(express.json()); //inbuilt middleware
 
 // const MONGO_URL = "mongodb://localhost";
 const MONGO_URL = process.env.MONGO_URL;
@@ -33,6 +33,26 @@ app.get("/", function (req, res) {
 
 app.use("/movies", moviesRouter);
 app.use("/users", usersRouter);
+
+//Mobiles App
+
+app.get("/mobiles", async function (req, res) {
+  const mobiles = await client
+    .db("b30wd")
+    .collection("mobiles")
+    .find({})
+    .toArray();
+  res.send(mobiles);
+});
+
+app.post("/mobiles", async function (req, res) {
+  const data = req.body;
+  const result = await client
+    .db("b30wd")
+    .collection("mobiles")
+    .insertMany(data);
+  res.send(result);
+});
 
 app.listen(PORT, () => console.log(`Server Started in Port ${PORT}`));
 

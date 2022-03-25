@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import { createUser, getUserByName } from "../helper.js";
+import jwt from "jsonwebtoken";
 const router = express.Router();
 
 async function genPassword(password) {
@@ -37,7 +38,8 @@ router.post("/login", async function (request, response) {
 
     console.log("isPasswordMatch :", isPasswordMatch);
     if (isPasswordMatch) {
-      response.send({ message: " Successfull login" });
+      const token = jwt.sign({ id: userFromDB._id }, process.env.SECRET_KEY); //https://www.npmjs.com/package/jsonwebtoke here we generate token
+      response.send({ message: " Successfull login", token: token }); // send the token
     } else {
       response.status(401).send({ message: "Invalid credentials" });
     }

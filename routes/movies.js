@@ -7,6 +7,7 @@ import {
   editMoviebyID,
   createMovies,
 } from "../helper.js";
+// import { auth } from "../middleware/auth.js";
 const router = express.Router();
 // app.get("/movies", function (req, res) {
 //   //db.movies.find({}) // to find all the movies
@@ -57,6 +58,6 @@ router.post("/", async function (request, response) {
   console.log(data);
   const result = await createMovies(data);
   response.send(result);
-});
+}); // auth is used to protect the data
 
 export const moviesRouter = router;
